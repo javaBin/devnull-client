@@ -2,9 +2,10 @@ import { Action } from 'actions'
 import { User } from 'types'
 
 // Should immediately be overwritten by Actions.loadUser
-const initialState: User = {
+export const initialState: User = {
 	id: '',
-	feedbacks: []
+	feedbacks: [],
+	hideTalks: true
 }
 
 export default function (state: User = initialState, action: Action): User {
@@ -16,6 +17,11 @@ export default function (state: User = initialState, action: Action): User {
 			}
 		case 'USER_LOAD_SUCCESS':
 			return action.payload
+		case 'TOGGLE_TALKS':
+			return {
+				...state,
+				hideTalks: action.payload
+			}
 		default:
 			return state
 	}

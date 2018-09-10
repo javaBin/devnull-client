@@ -9,10 +9,13 @@ header {
 
 	nav {
 		grid-column: 2 / 3;
-
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		overflow: hidden;
 		ul {
 			list-style: none;
-			line-height:  $header-height;
+			line-height: $header-height;
 			margin: 0;
 			padding: 0;
 
@@ -28,6 +31,10 @@ header {
 					font-size: 1.2rem;
 				}
 			}
+		}
+
+		button {
+			height: $header-height;
 		}
 	}
 }

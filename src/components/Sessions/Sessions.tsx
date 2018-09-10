@@ -6,6 +6,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { SessionFilter, State as ReduxState } from 'types'
 import { DateDiff, filterSessions, getDay, groupBy } from 'utils'
+import RatedSessions from './RatedSessions'
 import SessionsByDate from './SessionsByDate'
 
 import css from './Sessions.scss'
@@ -26,9 +27,11 @@ class Sessions extends React.Component<Props, State> {
 	}
 
 	render () {
-		const { sessions: { sessions, status }, user } = this.props
+		const { sessions: { sessions: seshs, status }, user } = this.props
 		const { filter } = this.state
-
+		const sessions = user.hideTalks
+			? seshs && seshs.filter(sesh => sesh.format === 'workshop')
+			: seshs || []
 		switch (status) {
 			case 'loading': return (
 				<h1>Loading...</h1>
@@ -36,12 +39,12 @@ class Sessions extends React.Component<Props, State> {
 			case 'error': return (
 				<h1>Not able to fetch talks</h1>
 			)
-			case 'success': return (
+			case 'success': return  (
 				<div className={css.sessions}>
 					<h1>Sessions</h1>
 					<ButtonGroup>
 						<Button active={filter === SessionFilter.open} onClick={() => this.setState({ filter: SessionFilter.open })}>Recent</Button>
-						<Button active={filter === SessionFilter.mine} onClick={() => this.setState({ filter: SessionFilter.mine })}>Mine</Button>
+						<Button active={filter === SessionFilter.mine} onClick={() => this.setState({ filter: SessionFilter.mine })}>Rated</Button>
 						<Button active={filter === SessionFilter.all} onClick={() => this.setState({ filter: SessionFilter.all })}>All</Button>
 					</ButtonGroup>
 					{filter === SessionFilter.open ? (
@@ -66,14 +69,8 @@ class Sessions extends React.Component<Props, State> {
 								</React.Fragment>
 							))}
 						</ul>
-					) : (
-						<ul style={{ marginTop: '1rem' }}>
-							{filterSessions(sessions, user, filter).map(sesh => (
-								<li key={sesh.sessionId}>
-									<SessionCard session={sesh}/>
-								</li>
-							))}
-						</ul>
+					) : filter === SessionFilter.mine && (
+						<RatedSessions sessions={filterSessions(sessions, user, filter)} />
 					)}
 				</div>
 			)
