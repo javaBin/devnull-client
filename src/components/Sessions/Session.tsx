@@ -6,7 +6,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 import { Feedback, FeedbackResponse, State as ReduxState } from 'types'
-import { api, capitalize, computeOverallRating, omit, pick } from 'utils'
+import { api, capitalize, omit, pick } from 'utils'
 
 import Button from '../Button'
 import * as classnames from './Session.scss'
@@ -58,7 +58,7 @@ class Session extends React.Component<Props, Feedback> {
 
 	render () {
 		const { session, feedback } = this.props
-		const { comments, relevance, content, quality } = this.state
+		const { comments } = this.state
 		if (!session) return <h1>Session not found</h1>
 
 		return (
