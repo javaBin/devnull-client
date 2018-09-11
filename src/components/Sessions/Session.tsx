@@ -28,6 +28,7 @@ class Session extends React.Component<Props, Feedback> {
 		if (!session)
 			fetchSessions(CURRENT_JZ)
 
+		/* Disabling due to bug with devnull
 		const response = await api<FeedbackResponse>(`${DEVNULL_URL}/events/${CURRENT_JZ.id}/sessions/${match.params.id}/feedbacks`, {
 			headers: new Headers({ 'Voter-ID': user.id })
 		})
@@ -37,6 +38,7 @@ class Session extends React.Component<Props, Feedback> {
 				...omit(response.body.session.online, 'count'),
 				comments: response.body.comments[0]
 			})
+		*/
 	}
 
 	onFeedbackEntered: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
