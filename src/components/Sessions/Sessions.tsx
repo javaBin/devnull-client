@@ -44,7 +44,7 @@ class Sessions extends React.Component<Props, State> {
 					<h1>Sessions</h1>
 					<ButtonGroup>
 						<Button active={filter === SessionFilter.open} onClick={() => this.setState({ filter: SessionFilter.open })}>Recent</Button>
-						<Button active={filter === SessionFilter.mine} onClick={() => this.setState({ filter: SessionFilter.mine })}>Rated</Button>
+						{/* disabling due to bug with devnull <Button active={filter === SessionFilter.mine} onClick={() => this.setState({ filter: SessionFilter.mine })}>Mine</Button> */}
 						<Button active={filter === SessionFilter.all} onClick={() => this.setState({ filter: SessionFilter.all })}>All</Button>
 					</ButtonGroup>
 					{filter === SessionFilter.open ? (
